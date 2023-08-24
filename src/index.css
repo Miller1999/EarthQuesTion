@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  background-size: cover;
   background-image: url("./assets/background.png");
   font-family: "Poppins";
 }
