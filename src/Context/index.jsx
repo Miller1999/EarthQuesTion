@@ -6,31 +6,44 @@ export const QuestionContextProvider = ({ children }) => {
   const API = "https://restcountries.com/v3.1/all";
   const [capital, setCapital] = useState("");
   const [randomNumber, setRandomNumber] = useState();
-  const [answers, setAnswers] = useState();
+  const [answers, setAnswers] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState();
   const [selected, setseleted] = useState("");
   const [hasSelected, setHasSelected] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [isCorrect, setIsCorrect] = useState();
   const [count, setCount] = useState(0);
+  const [errors, setErrors] = useState(0);
+  const [flag, setFlag] = useState("");
 
+  const unicos = answers.filter((valor, indice) => {
+    return answers.indexOf(valor) === indice;
+  });
   useEffect(() => {
     fetch(API)
       .then((res) => res.json())
       .then((data) => {
-        setCapital(`${data[randomNumber].capital[0]}`);
-        setCorrectAnswer(`${data[randomNumber].name.common}`);
-        setAnswers([
-          `${data[randomNumber].name.common}`,
-          `${data[Math.floor(Math.random() * (249 - 1))].name.common}`,
-          `${data[Math.floor(Math.random() * (249 - 2))].name.common}`,
-          `${data[Math.floor(Math.random() * (249 - 3))].name.common}`,
-        ]);
+        if (errors < 2) {
+          setFlag(`${data[randomNumber].flags.svg}`);
+          setCapital(`${data[randomNumber].capital[0]}`);
+          setCorrectAnswer(`${data[randomNumber].name.common}`);
+          const shuffledAnswers = [
+            ...new Set([
+              `${data[randomNumber].name.common}`,
+              `${data[Math.floor(Math.random() * (249 - 1))].name.common}`,
+              `${data[Math.floor(Math.random() * (249 - 2))].name.common}`,
+              `${data[Math.floor(Math.random() * (249 - 3))].name.common}`,
+            ]),
+          ];
+
+          setAnswers(shuffledAnswers);
+        }
       });
-  }, [randomNumber]);
+  }, [randomNumber, errors]);
   function random() {
-    setRandomNumber([Math.floor(Math.random() * 249)]);
+    setRandomNumber(Math.floor(Math.random() * 249));
     return Math.floor(Math.random() * 249);
   }
+
   useEffect(() => {
     if (selected === correctAnswer) {
       const value = true;
@@ -40,6 +53,8 @@ export const QuestionContextProvider = ({ children }) => {
       setIsCorrect(value);
     }
   }, [selected, correctAnswer]);
+
+  console.log(unicos);
 
   return (
     <QuestionContext.Provider
@@ -56,6 +71,9 @@ export const QuestionContextProvider = ({ children }) => {
         setIsCorrect,
         count,
         setCount,
+        errors,
+        setErrors,
+        flag,
       }}
     >
       {children}

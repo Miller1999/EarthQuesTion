@@ -14,6 +14,8 @@ const Button = ({ children, id }) => {
     hasSelected,
     setCount,
     count,
+    errors,
+    setErrors,
   } = useContext(QuestionContext);
 
   const handleRandom = () => {
@@ -24,12 +26,19 @@ const Button = ({ children, id }) => {
     if (isCorrect) {
       const ncount = count + 1;
       setCount(ncount);
+    } else {
+      const ncount = errors + 1;
+      setErrors(ncount);
     }
   };
   const handleOption = () => {
     setseleted(id);
     setHasSelected(true);
   };
+  const handleTry = () => {
+    window.location.href = "/";
+  };
+
   if (isCorrect && id === correctAnswer && selected === correctAnswer) {
     return (
       <button
@@ -59,6 +68,15 @@ const Button = ({ children, id }) => {
           "border border-gray-400 w-full p-2 rounded-lg text-gray-500 hover:text-white hover:bg-yellow-400 hover:border-transparent font-medium hover:transition-all duration-500"
         }
         disabled
+      >
+        <span>{children}</span>
+      </button>
+    );
+  } else if (id === "try") {
+    return (
+      <button
+        className="border border-gray-400 w-full p-2 rounded-lg text-gray-500 hover:text-white hover:bg-yellow-400 hover:border-transparent font-medium hover:transition-all duration-500"
+        onClick={() => handleTry()}
       >
         <span>{children}</span>
       </button>
