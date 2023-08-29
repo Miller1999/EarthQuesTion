@@ -14,15 +14,13 @@ export const QuestionContextProvider = ({ children }) => {
   const [count, setCount] = useState(0);
   const [errors, setErrors] = useState(0);
   const [flag, setFlag] = useState("");
+  const [type, setType] = useState();
 
-  const unicos = answers.filter((valor, indice) => {
-    return answers.indexOf(valor) === indice;
-  });
   useEffect(() => {
     fetch(API)
       .then((res) => res.json())
       .then((data) => {
-        if (errors < 2) {
+        if (errors < 1) {
           setFlag(`${data[randomNumber].flags.svg}`);
           setCapital(`${data[randomNumber].capital[0]}`);
           setCorrectAnswer(`${data[randomNumber].name.common}`);
@@ -54,8 +52,6 @@ export const QuestionContextProvider = ({ children }) => {
     }
   }, [selected, correctAnswer]);
 
-  console.log(unicos);
-
   return (
     <QuestionContext.Provider
       value={{
@@ -73,6 +69,8 @@ export const QuestionContextProvider = ({ children }) => {
         setCount,
         errors,
         setErrors,
+        type,
+        setType,
         flag,
       }}
     >

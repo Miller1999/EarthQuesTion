@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { QuestionContext } from "../../Context";
 
-const Button = ({ children, id }) => {
+const Button = ({ children, id, choose }) => {
   const {
     random,
     setseleted,
@@ -16,6 +16,7 @@ const Button = ({ children, id }) => {
     count,
     errors,
     setErrors,
+    setType,
   } = useContext(QuestionContext);
 
   const handleRandom = () => {
@@ -37,6 +38,10 @@ const Button = ({ children, id }) => {
   };
   const handleTry = () => {
     window.location.href = "/";
+  };
+  const handleMode = () => {
+    random();
+    setType(children);
   };
 
   if (isCorrect && id === correctAnswer && selected === correctAnswer) {
@@ -88,6 +93,15 @@ const Button = ({ children, id }) => {
           "border border-gray-400 w-full p-2 rounded-lg text-gray-500 hover:text-white hover:bg-yellow-400 hover:border-transparent font-medium hover:transition-all duration-500"
         }
         onClick={() => handleOption()}
+      >
+        <span>{children}</span>
+      </button>
+    );
+  } else if (choose) {
+    return (
+      <button
+        className="border border-gray-400 w-full p-2 rounded-lg text-gray-500 hover:text-white hover:bg-yellow-400 hover:border-transparent font-medium hover:transition-all duration-500"
+        onClick={() => handleMode()}
       >
         <span>{children}</span>
       </button>
