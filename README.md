@@ -37,7 +37,7 @@
 
 ## Overview
 <div style="text-align:center">
-   <img src ="https://github.com/Miller1999/QuoteVerse/assets/22383830/e7ac437d-4ef3-4f62-8595-c9178c12d06a" />
+   <img width="917" alt="image" src="https://github.com/Miller1999/EarthQuesTion/assets/22383830/c15f8c10-0817-44b4-b692-04d3fc43912e"/>
 </div>
 
 - Where can I see your demo?
