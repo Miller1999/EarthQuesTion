@@ -22,7 +22,7 @@ const Card = () => {
       return (
         <section className="flex flex-col justify-center items-center h-screen relative">
           <div>
-            <div className="flex gap-24 items-center absolute top-5">
+            <div className="flex gap-24 items-center absolute top-5 max-[426px]:top-32">
               <h1 className="text-white text-2xl font-bold mb-5">
                 EarthQuesTion
               </h1>
@@ -78,9 +78,9 @@ const Card = () => {
   } else if (type === "Flags") {
     if (flag !== "" && errors <= 0) {
       return (
-        <section className="flex flex-col justify-center items-center h-screen relative">
+        <section className="flex flex-col justify-center items-center h-screen relative ">
           <div>
-            <div className="flex gap-24 items-center absolute top-0">
+            <div className="flex gap-24 items-center absolute top-0 max-[426px]:top-28">
               <h1 className="text-white text-2xl font-bold mb-5">
                 EarthQuesTion
               </h1>
